@@ -2,7 +2,7 @@ name: DEPLOY CODE
 on:
   push:
     branches:
-    - master
+    - main
 
 jobs:
   deploy:
