@@ -1,4 +1,4 @@
-name: DEPLOY
+name: DEPLOY CODE
 on:
   push:
     branches:
