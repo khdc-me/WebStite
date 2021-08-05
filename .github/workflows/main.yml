@@ -3,21 +3,11 @@ on:
   push:
     branches:
     - main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: Build and Deploy
-
-    steps:
-      - uses: actions/checkout@master
-    
-      - name: Publish
-        uses: nogsantos/scp-deploy@master
-        with:
-          src: ./src/*
-          host: web.techtucson.com
-          remote: /var/lib/docker/volumes/WebURData/_data/
-          port: 22
-          user: webdeploy_ansible
-          key: ${{ secrets.DEPLOY_KEY }}
+uses: horochx/deploy-via-scp@master
+with:
+  local: src # eg: dist/*
+  remote: /var/lib/docker/volumes/WebURData/_data/ # eg: /home/github-action/www
+  host: web.techtucson.com # eg: example.com
+  port: 22 # eg: 22
+  user: webdeploy_github # eg: github-action
+  key: ${{ secrets.DEPLOY_KEY }} # eg: -----BEGIN OPENSSH PRIVATE KEY-----\nHEIiyzh5cT7hN...
