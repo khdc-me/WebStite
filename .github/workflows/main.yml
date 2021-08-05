@@ -1,6 +1,6 @@
 name: DEPLOY
 on:
-  commit:
+  push:
     branches:
     - master
 
