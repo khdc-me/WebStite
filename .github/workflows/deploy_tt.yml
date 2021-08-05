@@ -1,0 +1,21 @@
+name: DEPLOY CODE TO TechTucson
+on:
+  push:
+    branches:
+    - main
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.0
+      with:
+        switches: -avzr --delete --exclude="" --include="" --filter=""
+        path: src/
+        remote_path: /var/lib/docker/volumes/WebTTData/_data/
+        remote_host: web.techtucson.com
+        remote_port: 22
+        remote_user: webdeploy_github
+        remote_key: ${{ secrets.DEPLOY_KEY }}    
