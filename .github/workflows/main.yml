@@ -3,11 +3,19 @@ on:
   push:
     branches:
     - main
-uses: horochx/deploy-via-scp@master
-with:
-  local: src # eg: dist/*
-  remote: /var/lib/docker/volumes/WebURData/_data/ # eg: /home/github-action/www
-  host: web.techtucson.com # eg: example.com
-  port: 22 # eg: 22
-  user: webdeploy_github # eg: github-action
-  key: ${{ secrets.DEPLOY_KEY }} # eg: -----BEGIN OPENSSH PRIVATE KEY-----\nHEIiyzh5cT7hN...
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: rsync deployments
+      uses: burnett01/rsync-deployments@5.0
+      with:
+        switches: -avzr --delete --exclude="" --include="" --filter=""
+        path: src/
+        remote_path: /var/lib/docker/volumes/WebURData/_data/
+        remote_host: web.techtucson.com
+        remote_port: 22
+        remote_user: webdeploy_github
+        remote_key: ${{ secrets.DEPLOY_KEY }}    
