@@ -16,7 +16,7 @@ jobs:
         uses: nogsantos/scp-deploy@master
         with:
           src: ./src/*
-          host: web.techtcuson.com
+          host: web.techtucson.com
           remote: /var/lib/docker/volumes/WebURData/_data/
           port: 22
           user: webdeploy_ansible
