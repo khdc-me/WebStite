@@ -3,18 +3,22 @@ on:
   push:
     branches:
     - main
-
 jobs:
   deploy:
+    name: Deploy
     runs-on: ubuntu-latest
+
     steps:
-    - uses: actions/checkout@v2
-    - name: rsync deployments
-      uses: burnett01/rsync-deployments@5.0
-      with:
-        switches: -avzr --delete
-        path: src/
-        remote_path: /var/lib/docker/volumes/WebURData/_data/
-        remote_host: web.techtucson.com
-        remote_user: webdeploy_github
-        remote_key: ${{ secrets.DEPLOY_KEY }}
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Deploy to sandbox via rsync
+        uses: trendyminds/github-actions-rsync@master
+        with:
+          RSYNC_OPTIONS: -avzr --delete --exclude node_modules --exclude '.git*'
+          RSYNC_TARGET: /var/lib/docker/volumes/WebURData/_data/
+          RSYNC_SOURCE: /src/
+        env:
+          SSH_PRIVATE_KEY: ${{secrets.DEPLOY_KEY}}
+          SSH_USERNAME: webdeploy_github
+          SSH_HOSTNAME: web.techtucson.com
