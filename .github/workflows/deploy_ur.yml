@@ -1,4 +1,4 @@
-name: DEPLOY CODE2
+name: DEPLOY URIB.ES
 on:
   push:
     branches:
