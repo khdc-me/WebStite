@@ -1,6 +1,6 @@
 name: DEPLOY
 on:
-  push:
+  merge:
     branches:
     - master
 
