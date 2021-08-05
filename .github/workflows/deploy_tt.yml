@@ -1,4 +1,4 @@
-name: DEPLOY CODE TO TechTucson
+name: DEPLOY To TechTucson
 on:
   push:
     branches:
